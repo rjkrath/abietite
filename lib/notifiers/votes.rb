@@ -1,0 +1,3 @@
+class Notifiers::Votes
+
+end
