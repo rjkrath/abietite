@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Votes do
+describe Notifiers::Votes do
   describe '#notify' do
   end
 end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Login do
+describe Helpers::Login do
   describe 'login' do
     context 'for a voter with good creds' do
       it 'does nothing' do
