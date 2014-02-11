@@ -1,4 +1,3 @@
-require 'rspec'
 
 describe Voter do
   describe 'validations' do

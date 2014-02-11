@@ -1,4 +1,4 @@
-require 'rspec'
+require 'spec_helper'
 
 describe Scrapers::Votes do
   it 'iterates through derby entries' do

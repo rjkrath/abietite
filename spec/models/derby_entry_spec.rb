@@ -1,4 +1,3 @@
-require 'rspec'
 
 describe DerbyEntry do
 

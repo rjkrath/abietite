@@ -1,4 +1,4 @@
-require 'rspec'
+require 'spec_helper'
 
 describe Scrapers::FrontPage do
   let(:scraper) { described_class.new }
