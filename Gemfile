@@ -1,9 +1,14 @@
 source 'http://rubygems.org'
 
 gem 'rails', '4.0.2'
-gem 'rspec-rails'
+
 gem 'rake'
 gem 'nokogiri'
+
+group :test do
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
+end
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
