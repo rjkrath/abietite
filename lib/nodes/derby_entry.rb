@@ -19,7 +19,7 @@ module Nodes
     
     def extract_data
       { entry_id: entry_id,
-        total_votes: total_votes,
+        vote_count: vote_count,
         status: entry_status,
         entry_link: entry_link }.merge(image_data)
     end
@@ -34,7 +34,7 @@ module Nodes
       @node.attr('id').slice(/\d+/)
     end
 
-    def total_votes
+    def vote_count
       @node.at('.total span').content.slice(/\d+/)
     end
 

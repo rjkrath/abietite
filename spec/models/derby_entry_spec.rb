@@ -1,35 +1,16 @@
+require 'spec_helper'
 
 describe DerbyEntry do
 
   describe 'validations' do
-    it 'has an entry id' do
+    it { should validate_presence_of(:entry_id) }
+    it { should validate_presence_of(:title) }
+    it { should validate_presence_of(:image_path) }
+    it { should validate_presence_of(:vote_count) }
+    it { should validate_presence_of(:entered_at) }
 
-    end
-
-    it 'has a title' do
-
-    end
-
-    it 'has an image path' do
-
-    end
-
-    it 'has a "fog of war" flag' do
-
-    end
-
-    it 'has a vote count' do
-
-    end
-
-    it 'has a entered date' do
-
-    end
+    it { should allow_value('23089').for(:entry_id) }
+    it { should_not allow_value('not a number').for(:entry_id) }
   end
 
-  describe 'relationships' do
-    it 'has many voters' do
-
-    end
-  end
 end
