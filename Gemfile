@@ -5,6 +5,9 @@ gem 'rails', '4.0.2'
 gem 'rake'
 gem 'nokogiri'
 
+gem 'haml'
+gem 'haml-rails'
+
 group :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
