@@ -3,29 +3,10 @@ require 'spec_helper'
 describe Derby do
 
   describe 'validations' do
-    it 'has a derby id' do
-
-    end
-
-    it 'has an end time' do
-
-    end
-
-    it 'has a beginning time' do
-
-    end
-
-    it 'has a title' do
-
-    end
-
-    it 'has an "open" flag'
-  end
-
-  describe 'relationships' do
-    it 'has many derby entries' do
-
-    end
+    it { should validate_presence_of(:derby_id) }
+    it { should validate_presence_of(:title) }
+    it { should validate_presence_of(:end_at) }
+    it { should validate_presence_of(:begin_at) }
   end
 
 end

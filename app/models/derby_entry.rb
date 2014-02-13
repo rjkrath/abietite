@@ -1,6 +1,8 @@
 class DerbyEntry < ActiveRecord::Base
 
-  validates :entry_id, presence: true, format: { with: /\d+/ }
+  belongs_to :derby
+  has_and_belongs_to_many :voters
 
-  validates :title, :image_path, :vote_count, :entered_at, presence: true
+  validates :entry_id, :title, :image_path, :vote_count, :entered_at, presence: true
+
 end
