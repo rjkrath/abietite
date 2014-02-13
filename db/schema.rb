@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140213211408) do
+ActiveRecord::Schema.define(version: 20140213222354) do
 
   create_table "derbies", force: true do |t|
     t.integer  "derby_id",                 null: false
@@ -36,5 +36,16 @@ ActiveRecord::Schema.define(version: 20140213211408) do
   end
 
   add_index "derby_entries", ["entry_id"], name: "index_derby_entries_on_entry_id"
+
+  create_table "derby_entries_voters", id: false, force: true do |t|
+    t.integer "derby_entry_id", null: false
+    t.integer "voter_id",       null: false
+  end
+
+  create_table "voters", force: true do |t|
+    t.string   "email",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
