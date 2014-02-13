@@ -13,15 +13,25 @@ module Nodes
     #  }
     #}
 
-  def initialize(node)
+    def initialize(node)
       @node = node
     end
-    
-    def extract_data
-      { entry_id: entry_id,
+
+    def entry_id
+      @node.attr('id').slice(/\d+/)
+    end
+
+    def to_hash
+      {
+        entry_id: entry_id,
         vote_count: vote_count,
         status: entry_status,
-        entry_link: entry_link }.merge(image_data)
+        entry_link: entry_link
+      }.merge(image_data)
+    end
+
+    def valid?
+      entry_id.present?
     end
 
     private
@@ -30,9 +40,7 @@ module Nodes
       @node.at('.content a').attr('href')
     end
 
-    def entry_id
-      @node.attr('id').slice(/\d+/)
-    end
+
 
     def vote_count
       @node.at('.total span').content.slice(/\d+/)

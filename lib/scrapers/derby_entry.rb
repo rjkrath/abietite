@@ -13,13 +13,11 @@ module Scrapers
     #  ]
     #}
 
-    def self.find_or_create(entry_node)
+    def self.find_or_create(entry_node, derby_id)
       derby_entry = Nodes::DerbyEntry.new(entry_node.at('.voteBlock'))
 
-      node_data = derby_entry.extract_data
-
-      if node_data.present?
-        find(node_data[:entry_id]) || create(node_data)
+      if derby_entry.valid?
+        find(derby_entry.entry_id) || create({ derby_id: derby_id }.merge(derby_entry.to_hash))
       end
     end
 
