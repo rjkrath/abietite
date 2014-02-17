@@ -27,6 +27,8 @@ GEM
       tzinfo (~> 0.3.37)
     arel (4.0.2)
     atomic (1.1.14)
+    backbone-rails (1.1.0)
+      rails (>= 3.0.0)
     builder (3.1.4)
     diff-lcs (1.2.5)
     erubis (2.7.0)
@@ -106,6 +108,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  backbone-rails (~> 1.1.0)
   haml
   haml-rails
   jquery-rails
