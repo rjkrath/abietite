@@ -6,6 +6,6 @@ Abietite::Application.routes.draw do
     resources :derby_entries, only: :index
   end
 
-  resources :derby_entries, only: :create
+  resources :derby_entries, only: [:create, :destroy]
 
 end

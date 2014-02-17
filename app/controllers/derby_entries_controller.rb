@@ -1,7 +1,7 @@
 class DerbyEntriesController < ApplicationController
 
-  before_filter :find_derby, only: :index
-  before_filter :find_derby_entry, only: :create
+  before_action :find_derby, only: :index
+  before_action :find_derby_entry, only: [:create, :destroy]
 
   def index
     @derby_entries = @derby.try(:derby_entries) || []
@@ -15,24 +15,35 @@ class DerbyEntriesController < ApplicationController
     respond_to do |format|
       format.json do
         if current_voter.derby_entries << @derby_entry
-          render json: 'success', status: 200
+          render json: 'success', status: :created
         else
-          render json: 'failure', status: 422
+          render json: 'failure', status: :unprocessable_entity
         end
       end
     end
-
   end
 
+  def destroy
+    current_voter.derby_entries.destroy(@derby_entry)
+
+    respond_to do |format|
+      format.json do
+        render json: 'success', status: :ok
+      end
+    end
+  end
+
+  private
+
   def find_derby
-    @derby = Derby.where(id: params[:derby_id]).first
+    @derby = Derby.find_by(id: params[:derby_id])
   end
 
   def find_derby_entry
-    @derby_entry = DerbyEntry.where(id: params[:id]).first
+    @derby_entry = DerbyEntry.find_by(id: params[:id])
 
     unless @derby_entry
-      render json: 'not found', status: 422
+      render json: 'not found', status: :unprocessable_entity
     end
   end
 
