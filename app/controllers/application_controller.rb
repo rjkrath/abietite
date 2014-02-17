@@ -6,4 +6,8 @@ class ApplicationController < ActionController::Base
   def authenticate_voter
 
   end
+
+  def current_voter
+
+  end
 end
