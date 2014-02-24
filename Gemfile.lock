@@ -29,6 +29,8 @@ GEM
     atomic (1.1.14)
     backbone-rails (1.1.0)
       rails (>= 3.0.0)
+    bootstrap-sass (3.1.1.0)
+      sass (~> 3.2)
     builder (3.1.4)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -91,6 +93,11 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
+    sass (3.2.14)
+    sass-rails (4.0.1)
+      railties (>= 4.0.0, < 5.0)
+      sass (>= 3.1.10)
+      sprockets-rails (~> 2.0.0)
     shoulda-matchers (2.5.0)
       activesupport (>= 3.0.0)
     sprockets (2.10.1)
@@ -117,6 +124,7 @@ PLATFORMS
 
 DEPENDENCIES
   backbone-rails (~> 1.1.0)
+  bootstrap-sass
   coffee-rails (~> 4.0.0)
   haml
   haml-rails
@@ -125,5 +133,6 @@ DEPENDENCIES
   rails (~> 4.0.2)
   rake
   rspec-rails
+  sass-rails (~> 4.0.0)
   shoulda-matchers
   sqlite3
