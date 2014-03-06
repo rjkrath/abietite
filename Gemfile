@@ -11,6 +11,7 @@ gem 'haml-rails'
 group :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
+  gem 'factory_girl_rails'
 end
 
 # Use sqlite3 as the database for Active Record
