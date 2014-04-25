@@ -25,8 +25,8 @@ module Nodes
       {
         entry_id: entry_id,
         vote_count: vote_count,
-        status: entry_status,
-        entry_link: entry_link
+        #status: entry_status,
+        #entry_link: entry_link
       }.merge(image_data)
     end
 
@@ -54,7 +54,7 @@ module Nodes
       content_img = @node.at('.content img')
       {
         title: content_img.attr('title'),
-        img_path: content_img.attr('src')
+        image_path: content_img.attr('src')
       }
     end
   end

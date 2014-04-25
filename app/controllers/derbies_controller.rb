@@ -5,7 +5,7 @@ class DerbiesController < ApplicationController
   end
 
   def show
-    @derby = Derby.find_by_id(params[:id])
+    @derby = Derby.find_by(id: params[:id])
 
     unless @derby
       flash[:error] = 'Derby cannot be found'

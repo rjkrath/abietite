@@ -11,12 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140303155158) do
+ActiveRecord::Schema.define(version: 20140306170427) do
 
   create_table "authors", force: true do |t|
     t.string "name"
     t.string "catalog_link"
   end
+
+  add_index "authors", ["name"], name: "index_authors_on_name", unique: true
 
   create_table "daily_offers", force: true do |t|
     t.string  "title",          null: false

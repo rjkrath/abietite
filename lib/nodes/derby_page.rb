@@ -14,8 +14,8 @@ module Nodes
       {
         derby_id: derby_id,
         title: title,
-        link: link,
-        status: status
+        begin_at: Date.today,
+        end_at: Date.today
       }
     end
 

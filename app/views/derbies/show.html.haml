@@ -1,1 +1,12 @@
-= @derby.title
+.derby-info
+  = @derby.title
+
+
+
+.derby-entries
+  - @derby.derby_entries.each do |entry|
+    .entry
+      .entry-img
+        = entry.image_path
+      .entry-title
+        = entry.entry_id

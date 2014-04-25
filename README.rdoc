@@ -1,0 +1,42 @@
+A substance resembling mannite found in the needles of the common silver fir of Europe Abies pectinata
+
+Via Site:
+= voter
+  attrs
+  *entries
+
+Via Scraper:
+= front_page
+  attrs
+  -derby
+  -entry
+
+== derby
+  attrs
+  *entries
+
+=== entry
+   attrs
+
+
+- WRT not being able to login with an API, hold off on that - just give them the preference of being notified
+
+Derby scraper: - once every 4 hours (daytime) once derby is open for submissions
+ - Scrapes entries
+ - Notifies entry vote updater if new entries
+
+Entry vote updater: - from derby scraper notification
+ - Loops through voters
+ - Checks voter last signin time
+ - Updates voter entries if signed in since last time && vote changed
+
+Front page scraper: - once a day - 12am PST
+ - Scrapes front page
+ - On page update:
+   - notifies voters who voted for entry
+
+
+Every Thursday at 12:00 pm CT, we'll announce the t-shirt design theme of the week. On Friday at 12:00 pm CT, we'll open the floor for submissions.
+The following Wednesday at 12:00 pm CT, we'll stop accepting new submissions; the following Thursday at 12:00 pm CT, we'll close the voting and tally up the results.
+
+# Foreign key constraints gem

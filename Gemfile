@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '~> 4.0.2'
+gem "active_model_serializers", "~> 0.8.0"
 
 gem 'rake'
 gem 'nokogiri'

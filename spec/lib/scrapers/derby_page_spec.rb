@@ -2,27 +2,31 @@ require 'spec_helper'
 
 describe Scrapers::DerbyPage do
   let(:scraper) { described_class.new }
+  #
+  #let(:mock_document) { double('mock document') }
+  #let(:mock_links) { [double('link node')] }
+  #let(:mock_status) { double('status node') }
+  #let(:mock_entries) { [] }
+  #
+  #let(:mock_page_node) { double('derby page node', derby_id: 342, to_hash: {}) }
 
-  let(:mock_document) { double('mock document') }
-  let(:mock_links) { [double('link node')] }
-  let(:mock_status) { double('status node') }
-  let(:mock_entries) { [] }
-
-  let(:mock_page_node) { double('derby page node', derby_id: 342, to_hash: {}) }
-
-  before do
-    scraper.stub(:status_node).and_return(mock_status)
-    scraper.stub(:derby_page_links).and_return(mock_links)
-    scraper.stub(:primary_content_entries).and_return(mock_entries)
-
-    scraper.stub(:doc).and_return(mock_document)
+  it 'does something' do
+    scraper.scrape
   end
+
+  #before do
+  #  scraper.stub(:status_node).and_return(mock_status)
+  #  scraper.stub(:derby_page_links).and_return(mock_links)
+  #  scraper.stub(:primary_content_entries).and_return(mock_entries)
+  #
+  #  scraper.stub(:doc).and_return(mock_document)
+  #end
 
   it 'creates a new derby page node' do
     mock_page_node.stub(valid?: false)
     Nodes::DerbyPage.should_receive(:new).with(mock_links, mock_status).and_return(mock_page_node)
 
-    scraper.scrape
+
   end
 
   context 'with a valid derby page node' do

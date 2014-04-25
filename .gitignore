@@ -15,3 +15,5 @@
 /log/*.log
 /tmp
 /.idea
+/app/views/derby.html
+/app/views/fog_of_war.html
