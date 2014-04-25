@@ -11,6 +11,10 @@ class DailyOffer < ActiveRecord::Base
     find_by_offer_title(attrs.slice(:title)) || create_offer(attrs)
   end
 
+  def self.get_current_offer
+    ::Scrapers::FrontPage.new.scrape
+  end
+
   private
 
   def self.find_by_offer_title(title_attr)

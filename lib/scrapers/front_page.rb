@@ -23,9 +23,7 @@ module Scrapers
     def scrape
       front_page_node = Nodes::FrontPage.new(doc)
 
-      offer = ::DailyOffer.find_or_create(front_page_node.to_hash)
-
-      Notifiers::Voter.notify(offer)
+      ::DailyOffer.find_or_create(front_page_node.to_hash)
     end
 
     def url
