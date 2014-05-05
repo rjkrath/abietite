@@ -20,7 +20,7 @@ describe Scrapers::DerbyEntry do
       let(:new_derby_entry) { double('new derby entry') }
 
       it 'calls to create a derby entry' do
-        ::DerbyEntry.should_receive(:create).with(instance_of(Hash)).and_return(new_derby_entry)
+        ::DerbyEntry.should_receive(:create).with(derby_entry_node, 15).and_return(new_derby_entry)
 
         Scrapers::DerbyEntry.find_or_create(web_entry_node, 15)
       end

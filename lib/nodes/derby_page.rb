@@ -1,13 +1,12 @@
 module Nodes
   class DerbyPage
 
-    def initialize(link_nodes, status_node)
-      @link_node = link_nodes.detect{ |link| link.content =~ /Derby #/ }
-      @status_node = status_node
+    def initialize(doc)
+      @doc = doc
     end
 
     def derby_id
-      @link_node.content.slice(link_regexp, 'id')
+      link_node.content.slice(link_regexp, 'id')
     end
 
     def to_hash
@@ -25,16 +24,21 @@ module Nodes
 
     private
 
+    def link_node
+      @link_node ||= @doc.css('nav#breadcrumbs ol li a').detect{ |link| link.content =~ /Derby #/ }
+    end
+
+
     def title
-      @link_node.content.slice(link_regexp, 'title')
+      link_node.content.slice(link_regexp, 'title')
     end
 
     def link
-      @link_node.attr('href')
+      link_node.attr('href')
     end
 
     def status
-      @status_node.content
+      @doc.css('div#content div.derbyPrimaryContent > h1').first.content
     end
 
     def link_regexp

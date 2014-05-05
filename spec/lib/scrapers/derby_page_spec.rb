@@ -1,83 +1,59 @@
 require 'spec_helper'
 
 describe Scrapers::DerbyPage do
-  let(:scraper) { described_class.new }
-  #
-  #let(:mock_document) { double('mock document') }
-  #let(:mock_links) { [double('link node')] }
-  #let(:mock_status) { double('status node') }
-  #let(:mock_entries) { [] }
-  #
-  #let(:mock_page_node) { double('derby page node', derby_id: 342, to_hash: {}) }
+  let(:doc) { double('nokogiri parsed document', css: []) }
+  let(:scraper) { described_class.new('shirt derby url', doc) }
 
-  it 'does something' do
-    scraper.scrape
-  end
+  describe '.scrape_derby' do
 
-  #before do
-  #  scraper.stub(:status_node).and_return(mock_status)
-  #  scraper.stub(:derby_page_links).and_return(mock_links)
-  #  scraper.stub(:primary_content_entries).and_return(mock_entries)
-  #
-  #  scraper.stub(:doc).and_return(mock_document)
-  #end
+    let(:derby_page_node) { double('page node', valid?: true, derby_id: 15, to_hash: {}) }
 
-  it 'creates a new derby page node' do
-    mock_page_node.stub(valid?: false)
-    Nodes::DerbyPage.should_receive(:new).with(mock_links, mock_status).and_return(mock_page_node)
-
-
-  end
-
-  context 'with a valid derby page node' do
     before do
-      Nodes::DerbyPage.stub(:new).and_return(mock_page_node)
-      mock_page_node.stub(valid?: true)
+      Derby.stub(:create)
+      Nodes::DerbyPage.stub(:new).and_return(derby_page_node)
     end
 
-    context 'when this derby does not exist in the db' do
-      let(:new_derby) { double('new derby') }
+    it 'parses the page into a DerbyPage Node' do
+      Nodes::DerbyPage.should_receive(:new).and_return(derby_page_node)
+      scraper.scrape
+    end
 
-      it 'creates a new derby object' do
-        ::Derby.should_receive(:create).with(instance_of(Hash)).and_return(new_derby)
+    context 'with an invalid DerbyPage node' do
+      before { derby_page_node.stub(valid?: false) }
 
+      it 'does not find or create a derby' do
+        Derby.should_not_receive(:find_by)
+        Derby.should_not_receive(:create)
         scraper.scrape
       end
     end
 
-    context 'when this derby does exist in the db' do
-      let(:existing_derby) { double('existing derby') }
+    context 'when the derby does not exist in our db' do
+      before { Derby.stub(find_by: nil) }
 
-      it 'finds the derby object' do
-        ::Derby.should_receive(:where).with(derby_id: 342).and_return([existing_derby])
+      it 'attempts to find an existing Derby object' do
+        Derby.should_receive(:find_by).and_return(nil)
+        scraper.scrape
+      end
 
+      it 'attempts to create a new Derby object' do
+        Derby.should_receive(:create).with(instance_of(Hash)).and_return(Derby.new)
         scraper.scrape
       end
     end
 
-    context 'with a valid derby object' do
-      let(:mock_derby) { double('derby', derby_id: 312) }
-      let(:mock_entries) { [double('entry 1'), double('entry 2')] }
+    context 'when the derby does exist in our db' do
+      before { Derby.stub(find_by: Derby.new) }
 
-      before do
-        scraper.stub(:find_or_create).and_return(mock_derby)
-        scraper.stub(:primary_content_entries).and_return(mock_entries)
+      it 'attempts to find the existing Derby object' do
+        Derby.should_receive(:find_by).and_return(Derby.new)
+        scraper.scrape
       end
 
-      it 'calls to the DerbyEntry scraper to find or create each entry' do
-        Scrapers::DerbyEntry.should_receive(:find_or_create).with(mock_entries.first, 312).ordered
-        Scrapers::DerbyEntry.should_receive(:find_or_create).with(mock_entries.last, 312).ordered
-
+      it 'does not attempt to create a new Derby object' do
+        Derby.should_not_receive(:create)
         scraper.scrape
       end
     end
-
-    context 'with an invalid derby object' do
-      xit 'unsure of desire behavior'
-    end
-  end
-
-  context 'when the derby page is not valid' do
-    xit 'not sure what behavior is desired'
   end
 end

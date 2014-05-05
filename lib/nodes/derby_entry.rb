@@ -9,8 +9,10 @@ module Nodes
     #  'div.content' => {
     #    'a' => {
     #      'href' => '/derby/entry/\d*/.*',
-    #      'img' => ['title', 'src'] }
+    #      'img' => 'src' },
     #  }
+    #  'div.footer' => 'innerHTML'
+    #
     #}
 
     def initialize(node)
@@ -25,13 +27,20 @@ module Nodes
       {
         entry_id: entry_id,
         vote_count: vote_count,
+        image_path: image_path,
+        title: title,
+        fog_of_war: fog_of_war
         #status: entry_status,
         #entry_link: entry_link
-      }.merge(image_data)
+      }
     end
 
     def valid?
       entry_id.present?
+    end
+
+    def vote_count
+      total_vote_content.slice(/\d+/)
     end
 
     private
@@ -40,22 +49,24 @@ module Nodes
       @node.at('.content a').attr('href')
     end
 
-
-
-    def vote_count
-      @node.at('.total span').content.slice(/\d+/)
-    end
-
     def entry_status
       @node.attr('class').slice(/(active)|(rejected)/)
     end
 
-    def image_data
-      content_img = @node.at('.content img')
-      {
-        title: content_img.attr('title'),
-        image_path: content_img.attr('src')
-      }
+    def title
+      @node.at('.footer').content.strip
+    end
+
+    def image_path
+      @node.at('.content img').attr('src')
+    end
+
+    def total_vote_content
+      @node.at('.total span').content
+    end
+
+    def fog_of_war
+      (total_vote_content =~ Regexp.new('\+\?')).present?
     end
   end
 end

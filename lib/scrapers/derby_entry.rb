@@ -14,21 +14,27 @@ module Scrapers
     #}
 
     def self.find_or_create(entry_node, derby_id)
-      derby_entry = Nodes::DerbyEntry.new(entry_node.at('.voteBlock'))
+      entry_node = Nodes::DerbyEntry.new(entry_node.at('.voteBlock'))
 
-      if derby_entry.valid?
-        find(derby_entry.entry_id) || create({ derby_id: derby_id }.merge(derby_entry.to_hash))
+      if entry_node.valid?
+        begin
+          find_and_update(entry_node, derby_id) || create(entry_node, derby_id)
+        rescue ActiveRecord::RecordInvalid => e
+          puts "e: #{e.inspect} #{e.record.inspect}"
+        end
       end
     end
 
     private
 
-    def self.create(node_hash)
-      ::DerbyEntry.create(node_hash)
+    def self.create(entry_node, derby_id)
+      ::DerbyEntry.create!({ derby_id: derby_id }.merge(entry_node.to_hash))
     end
 
-    def self.find(entry_id)
-      ::DerbyEntry.where(entry_id: entry_id).first
+    def self.find_and_update(entry_node, derby_id)
+      if (entry = ::DerbyEntry.find_by(entry_id: entry_node.entry_id, derby_id: derby_id)).present?
+        entry.update!(vote_count: entry_node.vote_count)
+      end
     end
   end
 end

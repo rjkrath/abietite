@@ -12,7 +12,7 @@ class DailyOffer < ActiveRecord::Base
   end
 
   def self.get_current_offer
-    ::Scrapers::FrontPage.new.scrape
+    Scrapers::FrontPage.new.scrape
   end
 
   private
