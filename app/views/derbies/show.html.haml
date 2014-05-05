@@ -1,12 +1,10 @@
 .derby-info
-  = @derby.title
-
-
+  %h2= full_derby_title(@derby)
 
 .derby-entries
   - @derby.derby_entries.each do |entry|
     .entry
       .entry-img
-        = entry.image_path
+        = derby_entry_link(image_tag(entry.image_path, size: '186x186', alt: entry.title), entry)
       .entry-title
-        = entry.entry_id
+        = derby_entry_link(entry.title, entry)
