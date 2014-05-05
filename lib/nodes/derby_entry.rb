@@ -29,9 +29,9 @@ module Nodes
         vote_count: vote_count,
         image_path: image_path,
         title: title,
-        fog_of_war: fog_of_war
-        #status: entry_status,
-        #entry_link: entry_link
+        fog_of_war: fog_of_war,
+        active: active_entry?,
+        entry_link: entry_link
       }
     end
 
@@ -49,8 +49,8 @@ module Nodes
       @node.at('.content a').attr('href')
     end
 
-    def entry_status
-      @node.attr('class').slice(/(active)|(rejected)/)
+    def active_entry?
+      (@node.attr('class') =~ /active/).present?
     end
 
     def title
