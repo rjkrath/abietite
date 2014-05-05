@@ -58,7 +58,7 @@ module Nodes
     end
 
     def image_path
-      @node.at('.content img').attr('src')
+      @node.at('.content img').attr('lazysrc')
     end
 
     def total_vote_content
