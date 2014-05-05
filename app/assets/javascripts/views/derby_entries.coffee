@@ -1,4 +1,6 @@
-class DerbyEntries extends Backbone.View
+window.app ||= {}
+
+class app.DerbyEntriesList extends Backbone.View
   events: {
     'click .entry.unselected': 'addEntry',
     'click .entry.selected': 'removeEntry'

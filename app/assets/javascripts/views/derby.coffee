@@ -1,1 +1,3 @@
-class Derby extends Backbone.View
+window.app ||= {}
+
+class app.Derby extends Backbone.View

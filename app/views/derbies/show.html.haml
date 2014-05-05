@@ -1,10 +1,13 @@
 .derby-info
   %h2= full_derby_title(@derby)
 
+%script
+  new app.DerbyEntriesList("#{@derby.derby_entries.to_json}").render
+
 .derby-entries
-  - @derby.derby_entries.each do |entry|
-    .entry
-      .entry-img
-        = derby_entry_link(image_tag(entry.image_path, size: '186x186', alt: entry.title), entry)
-      .entry-title
-        = derby_entry_link(entry.title, entry)
+  -#- @derby.derby_entries.each do |entry|
+  -#  .entry
+  -#    .entry-img
+  -#      = derby_entry_link(image_tag(entry.image_path, size: '186x186', alt: entry.title), entry)
+  -#    .entry-title
+  -#      = derby_entry_link(entry.title, entry)
